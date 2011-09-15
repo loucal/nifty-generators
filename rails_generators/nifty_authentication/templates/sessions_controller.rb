@@ -22,6 +22,7 @@ class <%= session_plural_class_name %>Controller < ApplicationController
   end
 <%- else -%>
   def new
+    @ref = request.env['HTTP_REFERER']
   end
 
   def create
@@ -29,7 +30,7 @@ class <%= session_plural_class_name %>Controller < ApplicationController
     if <%= user_singular_name %>
       session[:<%= user_singular_name %>_id] = <%= user_singular_name %>.id
       flash[:notice] = "Logged in successfully."
-      redirect_to_target_or_default(root_url)
+      redirect_to_target_or_default(params[:ref])
     else
       flash.now[:error] = "Invalid login or password."
       render :action => 'new'

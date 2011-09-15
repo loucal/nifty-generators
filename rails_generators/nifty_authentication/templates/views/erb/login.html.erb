@@ -17,6 +17,7 @@
 <%% end %>
 <%- else -%>
 <%% form_tag <%= session_plural_name %>_path do %>
+  <%= hidden_field_tag 'ref', @ref %>
   <p>
     <%%= label_tag :login, "Username or Email Address" %><br />
     <%%= text_field_tag :login, params[:login] %>
